@@ -1,0 +1,50 @@
+
+main2:     формат файла elf64-x86-64
+
+
+Дизассемблирование раздела .text:
+
+0000000000401000 <_start>:
+  401000:	48 b8 00 20 40 00 00 	movabs rax,0x402000
+  401007:	00 00 00 
+  40100a:	e8 09 00 00 00       	call   401018 <_start+0x18>
+  40100f:	e8 44 00 00 00       	call   401058 <_start+0x58>
+
+Дизассемблирование раздела .printf:
+
+0000000000401018 <.printf>:
+  401018:	50                   	push   rax
+  401019:	53                   	push   rbx
+  40101a:	51                   	push   rcx
+  40101b:	52                   	push   rdx
+  40101c:	48 89 c1             	mov    rcx,rax
+  40101f:	e8 1c 00 00 00       	call   401040 <_start+0x40>
+  401024:	48 89 c2             	mov    rdx,rax
+  401027:	48 c7 c0 04 00 00 00 	mov    rax,0x4
+  40102e:	48 c7 c3 01 00 00 00 	mov    rbx,0x1
+  401035:	cd 80                	int    0x80
+  401037:	5a                   	pop    rdx
+  401038:	59                   	pop    rcx
+  401039:	5b                   	pop    rbx
+  40103a:	58                   	pop    rax
+  40103b:	c3                   	ret    
+
+Дизассемблирование раздела .length_string:
+
+0000000000401040 <.length_string>:
+  401040:	52                   	push   rdx
+  401041:	48 31 d2             	xor    rdx,rdx
+  401044:	80 3c 10 00          	cmp    BYTE PTR [rax+rdx*1],0x0
+  401048:	74 05                	je     40104f <_start+0x4f>
+  40104a:	48 ff c2             	inc    rdx
+  40104d:	eb f5                	jmp    401044 <_start+0x44>
+  40104f:	48 89 d0             	mov    rax,rdx
+  401052:	5a                   	pop    rdx
+  401053:	c3                   	ret    
+
+Дизассемблирование раздела .exit:
+
+0000000000401058 <.exit>:
+  401058:	48 c7 c0 01 00 00 00 	mov    rax,0x1
+  40105f:	48 c7 c3 00 00 00 00 	mov    rbx,0x0
+  401066:	cd 80                	int    0x80
